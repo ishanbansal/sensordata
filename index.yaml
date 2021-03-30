@@ -1,0 +1,6 @@
+indexes:
+- kind: NodeData
+  ancestor: yes
+  properties:
+  - name: date
+    direction: desc
