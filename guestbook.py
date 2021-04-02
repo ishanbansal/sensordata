@@ -60,10 +60,13 @@ class MainPage(webapp2.RequestHandler):
 
     def get(self):
         node_name = self.request.get('node_name', DEFAULT_NODE_NAME)
-        data_count = self.request.get('data_count', DEFAULT_COUNT_NAME)
+        data_count = self.request.get('data_count')
+        count = DEFAULT_COUNT_NAME
+        if data_count is not None and data_count != '':
+            count = int(data_count)
         node_query = NodeData.query(
             ancestor=node_key(node_name)).order(-NodeData.date)
-        node_data_list = node_query.fetch(10)
+        node_data_list = node_query.fetch(count)
 
         template_values = {
             'node_data': node_data_list,
